@@ -106,6 +106,93 @@ if (isset($_POST['cari']) && $page === 'cek-saldo') {
             opacity: 0.25;
             clip-path: polygon(100% 0, 0 0, 100% 100%);
         }
+
+        /* Geometric Background Pattern */
+        .geometric-background {
+            background-color: #f3f4f6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .geometric-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                /* Diagonal geometric shapes */
+                linear-gradient(135deg, transparent 0%, transparent 20%, #d1d5db 20%, #d1d5db 25%, transparent 25%, transparent 100%),
+                linear-gradient(45deg, transparent 0%, transparent 15%, #e5e7eb 15%, #e5e7eb 20%, transparent 20%, transparent 100%),
+                /* Blue gradient overlay */
+                linear-gradient(135deg, 
+                    rgba(30, 58, 138, 0.08) 0%, 
+                    rgba(14, 116, 144, 0.12) 25%, 
+                    rgba(8, 145, 178, 0.1) 50%, 
+                    rgba(6, 182, 212, 0.08) 75%, 
+                    transparent 100%);
+            background-size: 100% 100%, 100% 100%, 100% 100%;
+            background-position: 0 0, 0 0, 0 0;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .geometric-background::after {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 45%;
+            height: 70%;
+            background: linear-gradient(135deg, 
+                rgba(30, 58, 138, 0.15) 0%, 
+                rgba(8, 145, 178, 0.2) 35%, 
+                rgba(6, 182, 212, 0.15) 70%, 
+                transparent 100%);
+            clip-path: polygon(100% 0%, 100% 100%, 30% 60%, 50% 20%, 80% 30%);
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 60% 40% 70% 60% / 60% 30% 70% 40%;
+        }
+
+        /* Orange accent decorations */
+        .content-container::before {
+            content: '';
+            position: absolute;
+            top: 2%;
+            right: 3%;
+            width: 60px;
+            height: 60px;
+            background: #f97316;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .content-container::after {
+            content: '';
+            position: absolute;
+            bottom: 5%;
+            right: 2%;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+            clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .content-container {
+            position: relative;
+        }
+
+        .main-content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -168,7 +255,7 @@ if (isset($_POST['cari']) && $page === 'cek-saldo') {
                     <li>
                         <a href="?page=cek-saldo" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors bg-blue-700">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 6H6.28l-.31-1.243A1 1 0 005 4H3z"></path>
+                                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 6H6.414l.286-1.142A1 1 0 006 4H4a1 1 0 000 2h1l2.752 11.01A1 1 0 009 18a1 1 0 11-2 0 1 1 0 01-1-.9l-.748-2.998a1 1 0 00-.999-.85H2a1 1 0 100 2h1l.5 2a1.972 1.972 0 11-3.898.118L.02 7.971A1 1 0 000 7V4a1 1 0 001-1z"></path>
                                 <path d="M16 16a2 2 0 11-4 0 2 2 0 014 0zM4 12a2 2 0 11-4 0 2 2 0 014 0z"></path>
                             </svg>
                             <span class="text-sm font-medium">Cek Saldo Rekening</span>
@@ -192,12 +279,12 @@ if (isset($_POST['cari']) && $page === 'cek-saldo') {
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden">
+        <div class="flex-1 flex flex-col overflow-hidden relative geometric-background content-container">
             <!-- Header Bar -->
             <div class="header-bar"></div>
             
             <!-- Header -->
-            <header class="bg-white border-b border-gray-200 px-8 py-4 shadow-sm">
+            <header class="bg-white border-b border-gray-200 px-8 py-4 shadow-sm relative z-10">
                 <div class="flex items-center justify-between">
                     <nav class="flex items-center space-x-2 text-sm text-gray-600">
                         <a href="?page=dashboard" class="hover:text-blue-600 transition">Home</a>
@@ -215,7 +302,7 @@ if (isset($_POST['cari']) && $page === 'cek-saldo') {
             </header>
 
             <!-- Content Area -->
-            <div class="flex-1 overflow-auto p-8">
+            <div class="flex-1 overflow-auto p-8 main-content-wrapper">
                 <div class="max-w-6xl">
                     <!-- Card -->
                     <div class="bg-white rounded-lg shadow-md p-8 relative overflow-hidden">
@@ -242,7 +329,7 @@ if (isset($_POST['cari']) && $page === 'cek-saldo') {
                                     </div>
                                     <div class="min-w-64">
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Cari pada indeks</label>
-                                        <select name="search_index" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition bg-white">
+                                        <select name="search_index" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition">
                                             <option value="">Cari pada indeks</option>
                                             <option value="nomor_rekening">Nomor Rekening</option>
                                             <option value="nama_pemilik">Nama Pemilik</option>
@@ -294,7 +381,7 @@ if (isset($_POST['cari']) && $page === 'cek-saldo') {
             </div>
 
             <!-- Footer -->
-            <footer class="bg-white border-t border-gray-200 px-8 py-4 text-center text-sm text-gray-600">
+            <footer class="bg-white border-t border-gray-200 px-8 py-4 text-center text-sm text-gray-600 relative z-10">
                 <p>&copy; 2023 Cek Nomor Rekening. All rights reserved.</p>
             </footer>
         </div>
