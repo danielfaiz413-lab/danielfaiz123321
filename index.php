@@ -107,91 +107,116 @@ if (isset($_POST['cari']) && $page === 'cek-saldo') {
             clip-path: polygon(100% 0, 0 0, 100% 100%);
         }
 
-        /* Geometric Background Pattern */
-        .geometric-background {
-            background-color: #f3f4f6;
+        /* Professional BRI Geometric Background */
+        .bri-geometric-background {
+            background: linear-gradient(135deg, #f0f2f5 0%, #e8eaed 100%);
             position: relative;
             overflow: hidden;
         }
 
-        .geometric-background::before {
+        /* Light gray diagonal pattern (top) */
+        .bri-geometric-background::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background-image: 
-                /* Diagonal geometric shapes */
-                linear-gradient(135deg, transparent 0%, transparent 20%, #d1d5db 20%, #d1d5db 25%, transparent 25%, transparent 100%),
-                linear-gradient(45deg, transparent 0%, transparent 15%, #e5e7eb 15%, #e5e7eb 20%, transparent 20%, transparent 100%),
-                /* Blue gradient overlay */
-                linear-gradient(135deg, 
-                    rgba(30, 58, 138, 0.08) 0%, 
-                    rgba(14, 116, 144, 0.12) 25%, 
-                    rgba(8, 145, 178, 0.1) 50%, 
-                    rgba(6, 182, 212, 0.08) 75%, 
-                    transparent 100%);
-            background-size: 100% 100%, 100% 100%, 100% 100%;
-            background-position: 0 0, 0 0, 0 0;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            pointer-events: none;
-            z-index: 0;
+            height: 30%;
+            background: linear-gradient(180deg, 
+                rgba(211, 215, 220, 0.6) 0%,
+                rgba(211, 215, 220, 0.3) 50%,
+                transparent 100%);
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0 80%);
+            z-index: 1;
         }
 
-        .geometric-background::after {
+        /* Main geometric shapes (chevron/arrow) */
+        .bri-geometric-background::after {
             content: '';
             position: absolute;
-            top: -10%;
-            right: -5%;
-            width: 45%;
-            height: 70%;
+            bottom: 0;
+            right: 0;
+            width: 65%;
+            height: 65%;
             background: linear-gradient(135deg, 
-                rgba(30, 58, 138, 0.15) 0%, 
-                rgba(8, 145, 178, 0.2) 35%, 
-                rgba(6, 182, 212, 0.15) 70%, 
+                #1e3a8a 0%,
+                #1e3a8a 15%,
+                #1e40af 25%,
+                #0e7490 40%,
+                #0891b2 55%,
+                #06b6d4 70%,
                 transparent 100%);
-            clip-path: polygon(100% 0%, 100% 100%, 30% 60%, 50% 20%, 80% 30%);
-            pointer-events: none;
-            z-index: 0;
-            border-radius: 60% 40% 70% 60% / 60% 30% 70% 40%;
+            clip-path: polygon(
+                100% 100%,
+                0 100%,
+                0 75%,
+                25% 50%,
+                0 25%,
+                0 0,
+                100% 0,
+                75% 30%,
+                65% 50%,
+                75% 70%,
+                100% 100%
+            );
+            z-index: 2;
         }
 
-        /* Orange accent decorations */
-        .content-container::before {
-            content: '';
+        /* Orange accent triangle top-right */
+        .orange-accent-top {
             position: absolute;
             top: 2%;
-            right: 3%;
-            width: 60px;
-            height: 60px;
-            background: #f97316;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            opacity: 0.8;
-            pointer-events: none;
+            right: 1%;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 0px solid transparent;
+            border-top: 0px solid transparent;
+            border-bottom: 80px solid #f97316;
+            z-index: 5;
         }
 
-        .content-container::after {
-            content: '';
+        /* Orange accent triangle bottom-right */
+        .orange-accent-bottom {
             position: absolute;
             bottom: 5%;
-            right: 2%;
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
-            clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
-            opacity: 0.6;
-            pointer-events: none;
+            right: 0.5%;
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 0px solid transparent;
+            border-top: 0px solid transparent;
+            border-bottom: 60px solid #f97316;
+            z-index: 5;
         }
 
-        .content-container {
-            position: relative;
+        /* Cyan stripe accent */
+        .cyan-stripe {
+            position: absolute;
+            bottom: 20%;
+            right: 10%;
+            width: 120px;
+            height: 15px;
+            background: linear-gradient(90deg, transparent 0%, #06b6d4 50%, transparent 100%);
+            transform: rotate(-45deg);
+            z-index: 3;
+            opacity: 0.9;
+        }
+
+        /* Gold accent lines (bottom) */
+        .gold-accent {
+            position: absolute;
+            bottom: 8%;
+            right: 2%;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, #d4af37 50%, transparent 100%);
+            z-index: 5;
         }
 
         .main-content-wrapper {
             position: relative;
-            z-index: 1;
+            z-index: 10;
         }
     </style>
 </head>
@@ -279,12 +304,18 @@ if (isset($_POST['cari']) && $page === 'cek-saldo') {
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden relative geometric-background content-container">
+        <div class="flex-1 flex flex-col overflow-hidden relative bri-geometric-background">
+            <!-- Accent decorations -->
+            <div class="orange-accent-top"></div>
+            <div class="orange-accent-bottom"></div>
+            <div class="cyan-stripe"></div>
+            <div class="gold-accent"></div>
+
             <!-- Header Bar -->
             <div class="header-bar"></div>
             
             <!-- Header -->
-            <header class="bg-white border-b border-gray-200 px-8 py-4 shadow-sm relative z-10">
+            <header class="bg-white bg-opacity-95 border-b border-gray-200 px-8 py-4 shadow-sm relative z-10">
                 <div class="flex items-center justify-between">
                     <nav class="flex items-center space-x-2 text-sm text-gray-600">
                         <a href="?page=dashboard" class="hover:text-blue-600 transition">Home</a>
