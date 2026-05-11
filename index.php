@@ -1,11 +1,12 @@
 <?php
-// Handle search functionality
+// Handle navigation
+$page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 $results = [];
 $searched = false;
 
-if (isset($_POST['cari'])) {
+if (isset($_POST['cari']) && $page === 'cek-saldo') {
     $searched = true;
-    // Simulated data - this would normally come from a database
+    // Simulated data
     $results = [
         [
             'no' => 1,
@@ -47,9 +48,16 @@ if (isset($_POST['cari'])) {
         }
         .logo-bri {
             font-weight: bold;
-            font-size: 24px;
-            letter-spacing: 2px;
+            font-size: 32px;
+            letter-spacing: 3px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .bri-logo-large {
+            font-size: 120px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: #1e3a8a;
+            text-shadow: 0 4px 8px rgba(30, 58, 138, 0.3);
         }
         .decorative-chevron {
             position: absolute;
@@ -77,9 +85,65 @@ if (isset($_POST['cari'])) {
             background: linear-gradient(90deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%);
             height: 8px;
         }
+        .splash-background {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .splash-chevron-large {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #2563eb 0%, #60a5fa 50%, transparent 100%);
+            opacity: 0.2;
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+        }
+        .splash-chevron-secondary-large {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #f97316 0%, #fed7aa 50%, transparent 100%);
+            opacity: 0.25;
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
+
+<?php if ($page === 'dashboard'): ?>
+    <!-- SPLASH/DASHBOARD PAGE -->
+    <div class="w-screen h-screen splash-background flex items-center justify-center relative overflow-hidden">
+        <!-- Decorative Chevrons -->
+        <div class="splash-chevron-large" style="right: -100px; bottom: -100px;"></div>
+        <div class="splash-chevron-secondary-large" style="right: -50px; bottom: -50px;"></div>
+        <div class="splash-chevron-large" style="left: -100px; top: -100px; opacity: 0.1;"></div>
+
+        <!-- Logo Section -->
+        <div class="relative z-10 text-center">
+            <div class="bri-logo-large mb-8">
+                BRI
+            </div>
+            <p class="text-2xl text-gray-600 mb-12">Cek Rekening</p>
+            
+            <!-- Navigation Tabs -->
+            <div class="flex gap-4 justify-center">
+                <a href="?page=dashboard" class="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-md">
+                    Dashboard
+                </a>
+                <a href="?page=cek-saldo" class="px-8 py-3 bg-white text-blue-600 border-2 border-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                    Cek Saldo Rekening
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="absolute bottom-8 left-0 right-0 text-center text-sm text-gray-600">
+            <p>&copy; 2023 Cek Nomor Rekening. All rights reserved.</p>
+        </div>
+    </div>
+
+<?php elseif ($page === 'cek-saldo'): ?>
+    <!-- CEK SALDO PAGE -->
     <div class="flex h-screen">
         <!-- Sidebar -->
         <div class="sidebar-gradient w-64 text-white flex flex-col shadow-lg relative">
@@ -94,7 +158,7 @@ if (isset($_POST['cari'])) {
                 <p class="text-xs font-semibold text-blue-200 uppercase tracking-wider mb-4">Main Navigation</p>
                 <ul class="space-y-2">
                     <li>
-                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors bg-blue-700">
+                        <a href="?page=dashboard" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors text-blue-50">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
                             </svg>
@@ -102,7 +166,7 @@ if (isset($_POST['cari'])) {
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors text-blue-50">
+                        <a href="?page=cek-saldo" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors bg-blue-700">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 6H6.28l-.31-1.243A1 1 0 005 4H3z"></path>
                                 <path d="M16 16a2 2 0 11-4 0 2 2 0 014 0zM4 12a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -111,7 +175,7 @@ if (isset($_POST['cari'])) {
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors text-blue-50">
+                        <a href="?page=data-rekening" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors text-blue-50">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6a1 1 0 011-1h12a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zm0 8a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1v-2z"></path>
                             </svg>
@@ -136,7 +200,7 @@ if (isset($_POST['cari'])) {
             <header class="bg-white border-b border-gray-200 px-8 py-4 shadow-sm">
                 <div class="flex items-center justify-between">
                     <nav class="flex items-center space-x-2 text-sm text-gray-600">
-                        <a href="#" class="hover:text-blue-600 transition">Home</a>
+                        <a href="?page=dashboard" class="hover:text-blue-600 transition">Home</a>
                         <span class="text-gray-400">/</span>
                         <span class="text-gray-900 font-medium">Saldo</span>
                     </nav>
@@ -235,5 +299,8 @@ if (isset($_POST['cari'])) {
             </footer>
         </div>
     </div>
+
+<?php endif; ?>
+
 </body>
 </html>
